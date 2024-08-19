@@ -1,0 +1,66 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 420px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    overflow: hidden;
+    transition: height .2s ease;
+}
+
+.homepage .homeButton {
+    width: 70%;
+    margin: 30px;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+.homeSelect {
+    margin: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  
+.homeSelect:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: blue;
+    border-color: blue;
+}
+  
+.homeSelect option {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-weight: 700;
+}

@@ -1,0 +1,390 @@
+// for storing certain notes on debugging, running, this project, etc. 
+
+// Docker calls index, gets packages from express 
+// ./db is db.js 
+// app is the new instance of the application 
+
+// in terminal, run 'docker compose up'  
+// if you want to rebuild the docker, run 'docker compose down' then 'docker compose up' 
+    // compose.yml or docker-compose.yml is run, which runs Dockerfile 
+    // if you run docker compose up from backend, you get only backend 
+        // if you run docker compose up from PROJECT-GROUPS-03-LAB-A, then you get 2 containers running  
+
+//---------------------------------------------------------------------------
+// postgreSQL extension setup 
+
+// download SQLTools from extensions 
+    // download SQLTools PostgreSQL/Cockroach Driver     
+
+// click on SQLTools extension 
+
+// add a new connection, or click cylinder next to CONNECTIONS
+// " once you have connection, click paper next to connections for new SQL file"
+
+// Select your database driver : postgreSQL 
+
+// Fill in *connection name : test3, connection using : connection string, 
+        // connection string is the URL from neon 
+        // enable SSL, but uncheck "rejectUnauthorized"
+        
+        // test connection => successfully connected, then save connection
+
+// you should now be able to play with the neon database with the new SQL file 
+// To run the sql file, click 'Run on active connection' immediately above the first line. 
+
+// note in SQLTools under connections under test2, under neondb, schemas, 
+    // should be able to see tables 
+
+
+//---------------------------------------------------------------------------
+// JAVASCRIPT NOTES : run on terminal with "node test.js"
+
+// semicolons are optional, due to JavaScript's Automatic Semicolon insertion 
+
+//  const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+//      const numInputs = random(1, 10);
+// example of a lambda function and call. 
+
+// const varName = String.fromCharCode('a'.charCodeAt(0) + i); 
+    // 'a'.charCodeAT(0) is asscii, val 61 
+
+// index.js needs port 3010, so stop any docker that is running on that port,
+
+// both db.js, and test.js export a module to be used by index.js, 'node db.js' shouldn't do anything
+
+//---------------------------------------------------------------------------
+// TERMINAL and File Directory Notes
+
+// TERMINAL: run "npm install express cors pg dotenv pg-connection-string"
+// npm install dotenv
+// npm install express cors pg
+// etc. 
+// npm install axios  : to make a HTTP get request to /users endpoint 
+// ensure that npm installs the node_modules
+
+
+// DIRECTORY: put the .env file everywhere, otherwise node js cant read it.
+// .env contains the url to the postgreSQL neon cloud database 
+
+// go to chrome, or edge, type http://localhost:3010/users 
+// I think this is where the router.get('/users/:id', async() => {...}) are running 
+// note that router.get('/users', async (req, res) runs no problem rn.
+    // it runs everytime we call app.listen, which is like "main" in c and Java. 
+    // open a second terminal, run
+        // curl http://localhost:3010/users 
+        // curl http://localhost:3010/users/1     // to get user 1 by id.
+// Note, I think the router.get functions are used to query server after it started 
+    // if there is no 'req' argument, then it would just run immediately after app.listen    
+    
+    // can run :  http://localhost:3010/users/1  : in browser
+
+    // using postman, at the GET bar, 
+        // post http://localhost:3010/users/1 once index is running 
+        // click send
+        // at the bottom of screen, should see Body, Cookies, Headers, Test Result -> drag these up 
+        // under 'Body' tab, should see your Json 
+        // press "+" next to the get bar to open a new request
+
+// To post,
+
+    /* 
+       Using curl/terminal 
+
+       curl.exe -X POST http://localhost:3010/users \
+         -H "Content-Type: application/json" \
+         -d '{
+           "id": 45,
+           "username": "tommygirl",
+           "email": "your_email@example.com",
+           "password": "your_password"
+          }'
+
+         // '-X POST' specifies that the request method is POST 
+         // ' http://localhost:3010/users' is the URL to which the request is sent s
+         // '-H "Content-Type: application/json"' sets the Content-type header to 'application/json'. 
+         // '-d' Specifies the data to be sent in the request body, which is formatted as a JSON string
+         
+         Currently FAILS 
+
+
+
+         Invoke-RestMethod -Uri "http://localhost:3010/users" -Method Post -ContentType "application/json" -Body '{
+             "id": 45,
+             "username": "tommygirl",
+             "email": "your_email@example.com",
+             "password": "your_password"
+         }'
+
+         or 
+         
+       $jsonBody = @"
+{
+    "id": 45,
+    "username": "tommygirl",
+    "email": "your_email@example.com",
+    "password": "your_password"
+}
+"@
+
+Invoke-RestMethod -Uri "http://localhost:3010/users" -Method Post -ContentType "application/json" -Body $jsonBody
+
+
+        Currently WORKS, note in powershell, 'curl' is alias for 'Invoke-WebRequest',
+
+
+
+
+        * Note, you can declare variables in shell, e.g. 
+         
+         $jsonBody = '{
+            "id": 45,
+            "username": "tommygirl",
+            "email": "your_email@example.com",
+            "password": "your_password"
+         }'
+         
+         * alternatively curl 
+
+         curl.exe -X POST http://localhost:3010/users `
+        -H "Content-Type: application/json" `
+        -d $jsonBody
+
+        * or 
+
+        curl.exe -X POST http://localhost:3010/users `
+        -H "Content-Type: application/json" `
+        -d "{\"id\": 45, \"username\": \"tommygirl\", \"email\": \"your_email@example.com\", \"password\": \"your_password\"}"
+
+        
+        * or
+        
+        $jsonBody = @"
+            {
+            "id": 45,
+            "username": "tommygirl",
+            "email": "your_email@example.com",
+            "password": "your_password"
+            }
+            "@
+
+        curl.exe -X POST http://localhost:3010/users `
+        -H "Content-Type: application/json" `
+        -d $jsonBody
+
+        all 'curl' currently fails 
+    */
+
+
+    /* 
+        Using postman 
+
+        * new post request 
+
+        url http://localhost:3010/users
+
+        "Body" tab, select "raw" and "JSON" from the dropdown
+            note : this is NOT the response, but this body is directly below the POST. To the left is Scripts
+
+        enter this sample json body 
+      {
+        "id": 46,
+        "username": "tombro",
+        "email": "tombro@example.com",
+        "password": "password1234"
+      }
+
+        click send 
+
+        note : it failed before b/c we forgot to refresh index.js with updated router.post 
+
+        * new delete request 
+
+        URL : http://localhost:3010/users/46
+
+        click send 
+
+        reponse.body : User deleted successfully 
+
+        should be able to post again 
+        
+    */
+
+    //-----------------------------------------------------------------------------------------------------
+
+    // async functions which are pretty much promises, always ret promise 
+    // await handles asynchronous operations 
+
+    /*  the arrow function passed to 'router.get' is marked async, meaning 
+        it will always return a promise. This allows the use of 'await' 
+        within the function to handle asynchronous operations. 
+    */
+
+    /*
+        the 'await pool.query('SELECT * FROM users)' line pauses the execution of the 
+        function until the promise is return by 'pool.query' resolves (or rejects).
+        This makes it easier to work with asynchronous code as if it were synchronous 
+    */ 
+
+    /*
+        the try..catch block is used to catch any errors that might occuf during the 
+        execution of the 'await' call or any other code within the 'try' block 
+
+    */
+
+
+
+//---------------------------------------------------------------------------------------------
+
+  // LOCATION : FRONTEND SRC COMPONENTS PAGES TestResults.jsx
+
+  // PATHWAY FOR MOCHA, DO NOT UNCOMMENT, DO NOT DELETE IN CASE
+  
+  // useEffect(() => {
+  //   // Initialize Mocha
+  //   const mocha = new Mocha();
+    
+  //   // Create a script element for the tests
+  //   const testScript = `
+  //     import { expect } from 'chai';
+
+  //     ${updatedDescription}
+
+  //     describe('Questions from ${testData[0].qname}', () => {
+  //       ${testData.map(test => test.val).join('\n')}
+  //     });
+
+  //     mocha.run();
+  //   `;
+    
+  //   // Create a Blob from the test script
+  //   const blob = new Blob([testScript], { type: 'application/javascript' });
+  //   const scriptURL = URL.createObjectURL(blob);
+    
+  //   // Create a script element to run the tests
+  //   const scriptElement = document.createElement('script');
+  //   scriptElement.type = 'module';
+  //   scriptElement.src = scriptURL;
+  //   document.body.appendChild(scriptElement);
+
+  //   // Cleanup the script element after running the tests
+  //   return () => {
+  //     document.body.removeChild(scriptElement);
+  //     URL.revokeObjectURL(scriptURL);
+  //   };
+  // }, [testData, updatedDescription]);
+
+
+  // Back to Assessment Page
+  //   </button>
+  // <div id="mocha"></div> {/* Placeholder for Mocha results */}
+
+//---------------------------------------------------------------------------------------------
+
+// TESTING Frontend connection with Dylan's API 
+
+// LOCATION : FRONTEND SRC COMPONENTS PAGES AssessmentPage.jsx 
+
+// For querying Robert endpoint in Dylan's API, TESTING 
+// const queryRobert = async () => {
+//   try {
+//       const response = await axios.get('http://localhost:4000/Robert');
+//       const data = response.data.data; // Assuming the response is { "data": "yes" }
+//       setDescription(data);
+//   } catch (error) {
+//       console.error('Error querying Robert:', error);
+//       setDescription("failed");
+//   }
+// };
+ 
+// LOCATION: In Dylan's API at http://localhost:4000 , index.js in OLLAMASERVICE 
+
+// app.get('/Robert', async (req, res) => {
+//   try {
+//       // You can access the request body if needed
+//       const item = req.body;
+
+//       // For simplicity, just return "yes"
+//       res.json({ "data": "yes" });
+//   } catch (error) {
+//       console.error("error:", error);
+//       res.status(500).json({ "error": "Something went wrong" });
+//   }
+// });
+
+
+//---------------------------------------------------------------------------------------------
+
+
+    // FRONTEND 
+    /* 
+       public : index.html is the main
+      
+       <div id="root"></div>   this line is used by index.js in src 
+
+       which calls App.js which calls components : loginRegister.jsx and pages 
+
+       * Note, ensure that node_modules is deleted in Frontend to prevent caching of prebuilt docker images 
+        keep node_modules in backend, otherwise not find express in package.json    
+       
+       To run frontend w/o docker, 
+       in Terminal at frontend directory 
+                // if you havent already, run 'npm install' 
+                // then run 'npm start'  
+        
+        
+        At the docker, click Exec, this is like its own terminal/directory inside docker 
+        
+        enter 'ls', shows you which folders you can enter (blue)
+            - can also press "tab" when entering 'cd' to autofill 
+            - pwd : Print the current working directory. // etc. 
+            - find : e.g., find loginRegister.css : Search for files in a directory hierarchy.
+           
+            // more premanent changes 
+            - cp: Copy files or directories.
+            - mv: Move or rename files or directories.
+            - rm: Remove files or directories.
+            - mkdir: Create new directories.
+
+            to edit a text inside docker container exec, use 
+            - vi filename.jsx
+            - nano filename.jsx
+            - emacs filename.jsx
+
+            to break out, use 
+            Press 'Esc' to make sure you are in command mode 
+            Type ':wq' and press Enter. This command writes (saves) the file and quits the editor.
+            Type ':q!' and press Enter. This command quits the editor without saving any changes
+
+        other docker commands in terminal 
+            docker-compose build --no-cache
+            docker-compose up --build --no-cache
+            // To run Docker Compose without using the cache,
+            docker-compose build   // simply builds? 
+            docker-compose down --rmi all
+            docker rmi $(docker images -q)  // removes all images 
+            docker images -a  // list all images 
+ 
+    */
+
+    
+    /* DEBUGGING : The docker container has, e.g., 3.5 gb of RAM when the computer has 7-8 gb of RAM 
+
+                   The model, e.g., phi3, requires 5.6 gb of RAM to run, what do you do? 
+
+        A. Go to ./Users/Owner  or ./Users/your_username in FILE EXPLORER 
+
+        B. Make a .wslconfig file, or create a file name .wslconfig
+                It can be opened via text or notepad 
+
+        C. The contents of the file should be this. 
+
+            [wsl2]       # In the command prompt, run wsl --shutdown, then restart the computer.  
+            memory=7GB   # Limits VM memory in WSL 2 (e.g., 7GB)
+            processors=4 # Specifies the number of virtual processors
+            swap=2GB     # Sets the swap file size
+
+        D. Go to CMD, ./Users/Owner, then run wsl --shutdown but note that this should shutdown the docker as well.
+
+        E. You wont be able to open docker anymore, until you RESTART THE COMPUTER. 
+
+    */

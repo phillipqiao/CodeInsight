@@ -1,0 +1,125 @@
+
+.assessment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.result-container { 
+  width: 100%;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 1);
+  backdrop-filter: blur(66px);
+  border-radius: 10px;
+  padding: 20px;
+  color: white; 
+  min-height: 80vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.result-title {
+  color: white;
+}
+
+.timer-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.timer-time {
+  margin-left: 10px;
+  font-size: 1.2em;
+}
+
+.timer-button {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.stars-container {
+  margin-bottom: 10px;
+}
+
+.test-cases-result {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.percentage-result {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.code-sample-container {
+  margin-bottom: 10px;
+}
+
+.code-sample-container textarea,
+.refine-answer-container textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.generated-original-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.generated-original-container > div {
+  width: 48%;
+}
+
+.generated-original-container textarea {
+  width: 100%;
+  height: 200px; 
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.refine-answer-container {
+  margin-bottom: 10px;
+}
+
+.refine-answer-container textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.provide-reason-container {
+  margin-bottom: 10px;
+}
+
+.provide-reason-container textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.next-question-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}

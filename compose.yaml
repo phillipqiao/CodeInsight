@@ -1,0 +1,73 @@
+services:
+  project_starfish:
+    # restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        reservations:
+          memory: 2GB
+    depends_on:
+      - backend
+
+  backend:
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3010:3010"
+    environment:
+      - DATABASE_URL
+    volumes:
+      - ./backend:/app
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_volume:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  ollama_service:
+    env_file:
+      - ./ollama_service/.env
+    depends_on:
+      ollama:
+        condition: service_started
+      ollama-pull:
+        condition: service_completed_successfully
+    build:
+      context: ./ollama_service
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - OLLAMA_API_URL=http://ollama:11434/api/generate
+
+  ollama-pull:
+    image: docker/genai:ollama-pull
+    env_file:
+      - ./ollama_service/.env
+
+    
+  
+volumes:
+  ollama_volume:
+
+
+
+
+
+
+
+

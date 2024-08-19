@@ -1,0 +1,113 @@
+.account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.account-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(66px);
+    border-radius: 10px;
+    padding: 20px;
+    color: white; 
+}
+
+.account-title {
+    color: white; 
+    text-align: center; /* Center the title text */
+    margin-bottom: 20px;
+}
+
+.code-container {
+    width: 100%; /* Make sure the containers take full width */
+    margin-bottom: 10px;
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.code-container textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: black;
+    margin: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #c9d2c2;
+}
+
+.submit-status {
+    margin-left: 20px;
+    font-size: 1.2em;
+    color: white; 
+}
+
+.logout-button {
+    background-color: black;
+    color: white;
+}
+
+.logout-button:hover {
+    background-color: red;
+    color: black;
+}
+
+.accbutton-container {
+    display: flex;
+    justify-content: center; 
+    gap: 10px; 
+}
+
+.home-button {
+    background-color: rgb(63, 102, 207);
+    color: white;
+}
+
+.home-button:hover {
+    background-color: rgb(99, 134, 232);
+    color: black;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center; 
+    margin: 15px;
+    margin-right: 60px;
+    font-size: 20px;
+}
+
+.userinfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+}
+
+.star-icon {
+    color: #FFD700;
+    font-size: 24px;
+    vertical-align: middle;
+    margin-bottom: 5px;
+}
